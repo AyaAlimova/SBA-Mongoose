@@ -13,6 +13,7 @@ app.use(express.json())
 
 app.use('/', userRoutes);
 app.use('./user', userRoutes)
+app.use('/id', userRoutes)
 
 
 
