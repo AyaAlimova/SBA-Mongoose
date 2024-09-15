@@ -7,7 +7,7 @@ import User from '../models/userSchema.js'
 
 const router = express.Router()
 
-
+//get all users
 router.get('/', async (req, res) =>{
 try{
   const posts = await User.find();
@@ -18,7 +18,7 @@ try{
     res.status(400).send(error)
   }
 })
-
+// create a new user
 router.post('/user', async(req, res) =>{
   const {name, age, email} = req.body
 
@@ -35,7 +35,7 @@ router.post('/user', async(req, res) =>{
     res.status(400).json({message: error.message})
   }
 })
-
+//update by id
 router.patch('/:id', async (req, res) =>{
  try{
   let query = {_id: req.params.id}
@@ -50,6 +50,20 @@ router.patch('/:id', async (req, res) =>{
   return res.status(500).json({message: error.message})
  }
 })
+//delete user by id
+router.delete('/user/:id', async(req, res) =>{
+  try{
+  let query = {_id: req.params.id}
+  let result = await User.deleteOne(query)
 
+  if(result.deleteCount ===0){
+     res.status(404).send("Not found")
+  }
+    return res.status(200).send("User successfully deleted")
+}
+catch(error){
+  return res.status(500).json({message: error.message})
+}
+})
 
 export default router;
