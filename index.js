@@ -11,8 +11,8 @@ const PORT = 2020;
 
 app.use(express.json())
 
-app.get('/', userRoutes);
-app.post('./user', userRoutes)
+app.use('/', userRoutes);
+app.use('./user', userRoutes)
 
 
 

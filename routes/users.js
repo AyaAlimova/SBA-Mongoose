@@ -1,10 +1,11 @@
 import express from 'express'
 import db from "../db.js"
 //import {ObjectId} from 'mongodb'
-import mongoose  from 'mongoose'
-import User from '../models/userShema.js'
+//import mongoose  from 'mongoose'
+import User from '../models/userSchema.js'
 
 const router = express.Router()
+
 
 router.get('/', async (req, res) =>{
 try{
@@ -18,9 +19,20 @@ try{
 })
 
 router.post('/user', async(req, res) =>{
-  console.log(req.body)
-  res.send(req.body)
+  const {name, age, email} = req.body
 
+  const newUser = new User({
+    name, 
+    age, 
+    email
+  })
+  try{
+    const saveUser = await newUser.save();
+    res.status(201).json(saveUser)
+  }
+  catch(error){
+    res.status(400).json({message: error.message})
+  }
 })
 
 export default router;
