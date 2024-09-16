@@ -4,20 +4,32 @@ import 'dotenv/config'
 import connectDB from './db.js';
 //import Grade from './model/Grade.js'
 
-import userRoutes from './routes/users.js'
+import userRoutes from './routes/usersRoutes.js'
+import bookRoutes from './routes/booksRoutes.js'
 
 const app = express();
-const PORT = 2020;
+const PORT = 1010;
 
 app.use(express.json())
 
-app.use('/', userRoutes);
-app.use('./user', userRoutes)
-app.use('/id', userRoutes)
-app.use('/id', userRoutes)
+//user routes
+app.use('/users', userRoutes);
+
+//book routes 
+app.use('/books', bookRoutes)
+
+
+app.get('/', (req, res) =>{
+  res.send("API is running")
+})
 
 
 
+
+app.listen(PORT, () => {
+  console.log(`Server running on: ${PORT}`)
+  connectDB()
+})
 
 // createUser()
 // async function createUser() {
@@ -56,7 +68,3 @@ app.use('/id', userRoutes)
 
 // await newData.save();
 
-app.listen(PORT, () => {
-  console.log(`Server running on: ${PORT}`)
-  connectDB()
-})

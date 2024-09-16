@@ -1,9 +1,7 @@
 import express from 'express'
-import db from "../db.js"
-import {ObjectId} from 'mongodb'
-import mongoose  from 'mongoose'
+//import db from "../db.js"
+//import mongoose  from 'mongoose'
 import User from '../models/userSchema.js'
-//import { Collection } from 'mongoose'
 
 const router = express.Router()
 
@@ -19,7 +17,7 @@ try{
   }
 })
 // create a new user
-router.post('/user', async(req, res) =>{
+router.post('/', async(req, res) =>{
   const {name, age, email} = req.body
 
   const newUser = new User({
@@ -35,7 +33,7 @@ router.post('/user', async(req, res) =>{
     res.status(400).json({message: error.message})
   }
 })
-//update by id
+//update user by id
 router.patch('/:id', async (req, res) =>{
  try{
   let query = {_id: req.params.id}
@@ -51,12 +49,12 @@ router.patch('/:id', async (req, res) =>{
  }
 })
 //delete user by id
-router.delete('/user/:id', async(req, res) =>{
+router.delete('/:id', async(req, res) =>{
   try{
   let query = {_id: req.params.id}
   let result = await User.deleteOne(query)
 
-  if(result.deleteCount ===0){
+  if(result.deletedCount === 0){
      res.status(404).send("Not found")
   }
     return res.status(200).send("User successfully deleted")
