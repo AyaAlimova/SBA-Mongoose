@@ -1,9 +1,22 @@
 import mongoose  from "mongoose";
 
 const userSchema = new mongoose.Schema({
-  name: String,
-  age: Number,
-  email: String
+  name: {
+    type: String,
+    required: true,
+    index: true
+  },
+  age:{
+    type: Number,
+    required: true
+   
+  },
+
+  email:{
+    type: String,
+    required: true,
+    index: true
+  },
 },
 {collection: "user"})
 
