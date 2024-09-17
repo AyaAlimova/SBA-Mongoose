@@ -9,7 +9,7 @@ import bookRoutes from './routes/booksRoutes.js'
 import eventRoutes from './routes/eventsRoutes.js'
 
 const app = express();
-const PORT = 1013;
+const PORT = 2024;
 
 app.use(express.json())
 

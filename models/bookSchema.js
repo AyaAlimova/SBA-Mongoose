@@ -7,14 +7,32 @@ const bookSchema = new mongoose.Schema({
   },
   author: {
     type: String,
-    required: [true, 'Author is required'], // Author is mandatory
+    required: [true, 'Author is required'], 
   },
-  pages: Number,
-  rating: Number,
-  genres: Array,
-  reviews: Array
+  pages: {
+    type: Number,
+    min: [1, 'Pages must be at least 1'], 
+    required: [true, 'Page count is required']
+  },
+  rating: {
+    type: Number,
+    min: [0, 'Rating must be at least 0'], 
+    max: [5, 'Rating cannot exceed 5'], 
+  },
+  genres: {
+   type: [String],
+   validate:{
+    validator: function(v){
+      return v.length > 0;
+    },
+    message: "At least one genre is required"
+   }
+  },
+  reviews: {
+    type: [String]   
+  },
 },
-  {collection: "book"}
-)
+  {collection: "book"})
+
 const Book = mongoose.model("Book", bookSchema)
 export default Book
